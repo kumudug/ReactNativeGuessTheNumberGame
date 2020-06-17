@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -20,17 +20,42 @@ const generateRandomNumberBetween = (min: number, max: number, exclude: number):
 };
 
 const GameScreen = (props: AppProps) => {
+    const directionLower: String = 'lower';
+    const directionGreater: String = 'greater';
+
+    //Changing a ref doesn't rerender. That's why a ref was used instead of state
+    const currentLow = useRef(1);
+    const currentHigh = useRef(100);
+
     const [currentGuess, setCurrentGuess] = useState(
         generateRandomNumberBetween(1, 100, props.userChoice)
     );
+
+    const nextGuessHandler = (direction: String) => {
+        if ((direction === directionLower && currentGuess < props.userChoice) ||
+            (direction === directionGreater && currentGuess > props.userChoice)) {
+            Alert.alert('Don\'t Lie!', '¯\\_(ツ)_/¯', [{ text: 'Sorry!', style: 'cancel' }]);
+            return;
+        }
+        if (direction === directionLower) {
+            currentHigh.current = currentGuess;
+        } else {
+            currentLow.current = currentGuess;
+        }
+        let nextNumber = generateRandomNumberBetween(
+            currentLow.current,
+            currentHigh.current,
+            currentGuess);
+        setCurrentGuess(nextNumber);
+    };
 
     return (
         <View style={styles.screen}>
             <Text>Oponent's Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonPanel}>
-                <Button title="LOWER" onPress={() => { }} />
-                <Button title="GREATER" onPress={() => { }} />
+                <Button title="LOWER" onPress={() => { nextGuessHandler(directionLower) }} />
+                <Button title="GREATER" onPress={() => { nextGuessHandler(directionGreater) }} />
             </Card>
         </View>
     );
