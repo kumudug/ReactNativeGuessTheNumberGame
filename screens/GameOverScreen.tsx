@@ -2,14 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 type AppProps = {
-    guessCount: number
+    guessCount: number,
+    userNumber?: number
 };
 
 const GameOverScreen = (props: AppProps) => {
     return (
         <View style={styles.screen}>
             <Text>Game Over !</Text>
-            <Text>{props.guessCount}</Text>
+            <Text>Number of rounds: {props.guessCount}</Text>
+            <Text>Number was: {props.userNumber}</Text>
         </View>
     );
 };

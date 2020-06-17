@@ -23,7 +23,8 @@ export default function App() {
 
   if (guessCount > 0) {
     content = <GameOverScreen
-      guessCount={guessCount} />
+      guessCount={guessCount}
+      userNumber={userNumber} />
   } else if (userNumber) {
     content = <GameScreen
       userChoice={userNumber}
