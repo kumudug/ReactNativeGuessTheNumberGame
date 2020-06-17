@@ -1,11 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 
 type AppProps = {
-    userChoice: number
+    userChoice: number,
+    onGameOver: (numRounds: number) => void
 };
 
 const generateRandomNumberBetween = (min: number, max: number, exclude: number): number => {
@@ -26,10 +27,24 @@ const GameScreen = (props: AppProps) => {
     //Changing a ref doesn't rerender. That's why a ref was used instead of state
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
+    const numRounds = useRef(1);
 
     const [currentGuess, setCurrentGuess] = useState(
         generateRandomNumberBetween(1, 100, props.userChoice)
     );
+
+    /* Destructur used to get constants assigned from props
+    This is needed to add conditions to use effect
+    If we use props there it will run every time props change, which is every render cycle
+    When we get the constans out it only runs if those constants change */
+    const { userChoice, onGameOver } = props;
+
+    //useEffect runs after every render cycle
+    useEffect(() => {
+        if (currentGuess === props.userChoice) {
+            props.onGameOver(numRounds.current);
+        }
+    }, [currentGuess, userChoice]);
 
     const nextGuessHandler = (direction: String) => {
         if ((direction === directionLower && currentGuess < props.userChoice) ||
@@ -42,6 +57,7 @@ const GameScreen = (props: AppProps) => {
         } else {
             currentLow.current = currentGuess;
         }
+        numRounds.current += 1;
         let nextNumber = generateRandomNumberBetween(
             currentLow.current,
             currentHigh.current,
