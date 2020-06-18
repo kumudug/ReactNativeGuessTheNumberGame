@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         marginVertical: 10,
-
+        //Expo doesn't support fontWeight so you need to use font famility to set bold fonts
+        fontFamily: 'open-sans-bold'
     },
     inputContainer: {
         width: 300,
