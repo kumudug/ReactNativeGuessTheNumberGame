@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
+import TitleText from '../components/TitleText';
+import BodyText from '../components/BodyText';
+
 type AppProps = {
     guessCount: number,
     userNumber?: number,
@@ -10,9 +13,9 @@ type AppProps = {
 const GameOverScreen = (props: AppProps) => {
     return (
         <View style={styles.screen}>
-            <Text>Game Over !</Text>
-            <Text>Number of rounds: {props.guessCount}</Text>
-            <Text>Number was: {props.userNumber}</Text>
+            <TitleText>Game Over !</TitleText>
+            <BodyText>Number of rounds: {props.guessCount}</BodyText>
+            <BodyText>Number was: {props.userNumber}</BodyText>
             <Button title="New Game" onPress={props.onStartGame} />
         </View>
     );

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import TitleText from '../components/TitleText';
 
 type AppProps = {
     userChoice: number,
@@ -67,7 +68,7 @@ const GameScreen = (props: AppProps) => {
 
     return (
         <View style={styles.screen}>
-            <Text>Oponent's Guess</Text>
+            <TitleText>Oponent's Guess</TitleText>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonPanel}>
                 <Button title="LOWER" onPress={() => { nextGuessHandler(directionLower) }} />

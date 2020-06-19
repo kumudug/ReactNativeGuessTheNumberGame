@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import Colors from '../constants/colors';
-import colors from '../constants/colors';
+import TitleText from '../components/TitleText';
 
 type AppProps = {
     title: String
@@ -11,7 +11,7 @@ type AppProps = {
 const Header = (props: AppProps) => {
     return (
         <View style={styles.header}>
-            <Text style={styles.headerTitle}>{props.title}</Text>
+            <TitleText style={styles.headerTitle}>{props.title}</TitleText>
         </View>
     );
 };
@@ -21,15 +21,17 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 90,
         paddingTop: 36,
-        backgroundColor: colors.primary,
+        backgroundColor: Colors.primary,
         alignItems: 'center',
         justifyContent: 'center'
     },
     headerTitle: {
         color: 'white',
-        fontWeight: 'bold',
+        //Expo can't load custom fonts when fontWeight is set
+        // fontWeight: 'bold',
         fontSize: 18,
-        height: '100%'
+        height: '100%',
+        fontFamily: 'open-sans'
     }
 });
 

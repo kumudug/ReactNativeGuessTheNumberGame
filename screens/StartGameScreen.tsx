@@ -13,6 +13,8 @@ import Card from '../components/Card';
 import Colors from '../constants/colors';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
+import BodyText from '../components/BodyText';
+import TitleText from '../components/TitleText';
 
 type AppProps = {
     onStartGame: (userNumber: number) => void;
@@ -55,7 +57,7 @@ const StartGameScreen = (props: AppProps) => {
     if (confirmed) {
         confirmedOutput = (
             <Card style={styles.summaryContainer}>
-                <Text>Chosen Number</Text>
+                <BodyText>Chosen Number</BodyText>
                 <View style={styles.summaryContainerNumber}>
                     <NumberContainer>
                         {selectedNumber}
@@ -69,9 +71,9 @@ const StartGameScreen = (props: AppProps) => {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.screen}>
-                <Text style={styles.title}>Start a New Game!</Text>
+                <TitleText style={styles.title}>Start a New Game!</TitleText>
                 <Card style={styles.inputContainer}>
-                    <Text>Select a Number</Text>
+                    <BodyText>Select a Number</BodyText>
                     <Input
                         autoCorrect={false}
                         maxLength={2}
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginVertical: 10,
         //Expo doesn't support fontWeight so you need to use font famility to set bold fonts
-        fontFamily: 'open-sans-bold'
+        //fontFamily: 'open-sans-bold'
     },
     inputContainer: {
         width: 300,
