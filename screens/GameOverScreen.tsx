@@ -17,7 +17,8 @@ const GameOverScreen = (props: AppProps) => {
             <View style={styles.imageContainer}>
                 <Image
                     style={styles.image}
-                    source={require('../assets/success.png')}
+                    // source={require('../assets/success.png')}
+                    source={{uri: 'https://komonews.com/resources/media/690306d7-4332-42a8-ae71-e4df5c49570a-large16x9_572.GRainierfromTolmie.jpg?1559309854851'}}
                     resizeMode="cover"
                 />
             </View>
