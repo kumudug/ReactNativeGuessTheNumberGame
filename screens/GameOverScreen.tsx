@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Image } from 'react-native';
 
 import TitleText from '../components/TitleText';
 import BodyText from '../components/BodyText';
+import Colors from '../constants/colors';
 
 type AppProps = {
     guessCount: number,
@@ -18,12 +19,13 @@ const GameOverScreen = (props: AppProps) => {
                 <Image
                     style={styles.image}
                     // source={require('../assets/success.png')}
-                    source={{uri: 'https://komonews.com/resources/media/690306d7-4332-42a8-ae71-e4df5c49570a-large16x9_572.GRainierfromTolmie.jpg?1559309854851'}}
+                    //For web images a width and a hight is always needed. RN can't determine width and hight 
+                    source={{ uri: 'https://komonews.com/resources/media/690306d7-4332-42a8-ae71-e4df5c49570a-large16x9_572.GRainierfromTolmie.jpg?1559309854851' }}
                     resizeMode="cover"
                 />
             </View>
-            <BodyText>Number of rounds: {props.guessCount}</BodyText>
-            <BodyText>Number was: {props.userNumber}</BodyText>
+            <BodyText>Number of rounds: <Text style={styles.highlight}>{props.guessCount}</Text></BodyText>
+            <BodyText>Number was: <Text style={styles.highlight}>{props.userNumber}</Text></BodyText>
             <Button title="New Game" onPress={props.onStartGame} />
         </View>
     );
@@ -48,6 +50,9 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         overflow: 'hidden',
         marginVertical: 30
+    },
+    highlight: {
+        color: Colors.primary
     }
 });
 
