@@ -94,7 +94,10 @@ const GameScreen = (props: AppProps) => {
                 {/* <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                     {pastGuesses.map((guess, index) => renderListItem(guess, pastGuesses.length - index))}
                 </ScrollView> */}
-                <FlatList keyExtractor={(item) => item.toString()} data={pastGuesses} renderItem={renderListItem.bind(null, pastGuesses.length)} />
+                <FlatList
+                    keyExtractor={(item) => item.toString()}
+                    data={pastGuesses} renderItem={renderListItem.bind(null, pastGuesses.length)}
+                    contentContainerStyle={styles.scrollViewContainer} />
             </View>
         </View>
     );
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
         maxWidth: '80%'
     },
     scrollWrapper: {
-        width: '80%',
+        width: '60%',
         flex: 1 //Without this the scroll view won't scroll in android
     },
     list: {
@@ -125,10 +128,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '60%'
+        width: '100%'
     },
     scrollViewContainer: {
-        alignItems: 'center',
+        //alignItems: 'center',
         justifyContent: 'flex-end',
         flexGrow: 1
     }
