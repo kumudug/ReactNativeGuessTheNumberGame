@@ -6,6 +6,7 @@ import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import TitleText from '../components/TitleText';
 import MainButton from '../components/MainButton';
+import BodyText from '../components/BodyText';
 
 type AppProps = {
     userChoice: number,
@@ -21,6 +22,15 @@ const generateRandomNumberBetween = (min: number, max: number, exclude: number):
     } else {
         return rndNum;
     }
+};
+
+const renderListItem = (item: number, round: number) => {
+    return (
+        <View key={item} style={styles.list}>
+            <BodyText>#{round}</BodyText>
+            <BodyText>{item}</BodyText>
+        </View>
+    );
 };
 
 const GameScreen = (props: AppProps) => {
@@ -79,15 +89,11 @@ const GameScreen = (props: AppProps) => {
                     <Ionicons name="md-add" size={24} color="white" />
                 </MainButton>
             </Card>
-            <ScrollView>
-                {pastGuesses.map(guess => {
-                    return (
-                        <View key={guess}>
-                            <Text>{guess}</Text>
-                        </View>
-                    );
-                })}
-            </ScrollView>
+            <View style={styles.scrollWrapper}>
+                <ScrollView>
+                    {pastGuesses.map((guess, index) => renderListItem(guess, pastGuesses.length - index))}
+                </ScrollView>
+            </View>
         </View>
     );
 };
@@ -104,6 +110,19 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: 300,
         maxWidth: '80%'
+    },
+    scrollWrapper: {
+        width: '80%',
+        flex: 1 //Without this the scroll view won't scroll in android
+    },
+    list: {
+        borderColor: '#ccc',
+        borderWidth: 1,
+        padding: 15,
+        marginVertical: 10,
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 });
 
