@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
@@ -30,11 +30,10 @@ const GameScreen = (props: AppProps) => {
     //Changing a ref doesn't rerender. That's why a ref was used instead of state
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
-    const numRounds = useRef(1);
 
-    const [currentGuess, setCurrentGuess] = useState(
-        generateRandomNumberBetween(1, 100, props.userChoice)
-    );
+    const initialGuess = generateRandomNumberBetween(1, 100, props.userChoice);
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    const [pastGuesses, setPastGuesses] = useState<number[]>([initialGuess]);
 
     /* Destructur used to get constants assigned from props
     This is needed to add conditions to use effect
@@ -45,7 +44,7 @@ const GameScreen = (props: AppProps) => {
     //useEffect runs after every render cycle
     useEffect(() => {
         if (currentGuess === props.userChoice) {
-            props.onGameOver(numRounds.current);
+            props.onGameOver(pastGuesses.length);
         }
     }, [currentGuess, userChoice]);
 
@@ -58,14 +57,14 @@ const GameScreen = (props: AppProps) => {
         if (direction === directionLower) {
             currentHigh.current = currentGuess;
         } else {
-            currentLow.current = currentGuess;
+            currentLow.current = currentGuess + 1;
         }
-        numRounds.current += 1;
         let nextNumber = generateRandomNumberBetween(
             currentLow.current,
             currentHigh.current,
             currentGuess);
         setCurrentGuess(nextNumber);
+        setPastGuesses(curVal => [nextNumber, ...curVal]);
     };
 
     return (
@@ -74,12 +73,21 @@ const GameScreen = (props: AppProps) => {
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonPanel}>
                 <MainButton onPress={() => { nextGuessHandler(directionLower) }} >
-                    <Ionicons name="md-remove" size={24} color="white"/>
+                    <Ionicons name="md-remove" size={24} color="white" />
                 </MainButton>
                 <MainButton onPress={() => { nextGuessHandler(directionGreater) }}>
-                <Ionicons name="md-add" size={24} color="white"/>
+                    <Ionicons name="md-add" size={24} color="white" />
                 </MainButton>
             </Card>
+            <ScrollView>
+                {pastGuesses.map(guess => {
+                    return (
+                        <View key={guess}>
+                            <Text>{guess}</Text>
+                        </View>
+                    );
+                })}
+            </ScrollView>
         </View>
     );
 };
