@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert, FlatList, ListRenderItemInfo } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
@@ -24,11 +24,12 @@ const generateRandomNumberBetween = (min: number, max: number, exclude: number):
     }
 };
 
-const renderListItem = (item: number, round: number) => {
+//FlatList sends the item param automatically. Since we are sending the length explicitly the auto param has to be after
+const renderListItem = (length: number, itemData: ListRenderItemInfo<number>) => {
     return (
-        <View key={item} style={styles.list}>
-            <BodyText>#{round}</BodyText>
-            <BodyText>{item}</BodyText>
+        <View style={styles.list}>
+            <BodyText>#{length - itemData.index}</BodyText>
+            <BodyText>{itemData.item}</BodyText>
         </View>
     );
 };
@@ -90,9 +91,10 @@ const GameScreen = (props: AppProps) => {
                 </MainButton>
             </Card>
             <View style={styles.scrollWrapper}>
-                <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                {/* <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                     {pastGuesses.map((guess, index) => renderListItem(guess, pastGuesses.length - index))}
-                </ScrollView>
+                </ScrollView> */}
+                <FlatList keyExtractor={(item) => item.toString()} data={pastGuesses} renderItem={renderListItem.bind(null, pastGuesses.length)} />
             </View>
         </View>
     );
