@@ -126,7 +126,9 @@ const styles = StyleSheet.create({
         width: '60%'
     },
     scrollViewContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flexGrow: 1
     }
 });
 
