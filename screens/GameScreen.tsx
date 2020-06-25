@@ -90,7 +90,7 @@ const GameScreen = (props: AppProps) => {
                 </MainButton>
             </Card>
             <View style={styles.scrollWrapper}>
-                <ScrollView>
+                <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                     {pastGuesses.map((guess, index) => renderListItem(guess, pastGuesses.length - index))}
                 </ScrollView>
             </View>
@@ -122,7 +122,11 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         backgroundColor: 'white',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        width: '60%'
+    },
+    scrollViewContainer: {
+        alignItems: 'center'
     }
 });
 
