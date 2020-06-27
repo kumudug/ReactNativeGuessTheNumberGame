@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert, FlatList, ListRenderItemInfo } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    Alert,
+    FlatList,
+    ListRenderItemInfo
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
