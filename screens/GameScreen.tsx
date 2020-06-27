@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         maxWidth: '80%'
     },
     scrollWrapper: {
-        width: '60%',
+        width: Dimensions.get('window').width > 500 ? '60%' : '80%',
         flex: 1 //Without this the scroll view won't scroll in android
     },
     list: {
