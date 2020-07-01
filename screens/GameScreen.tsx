@@ -85,6 +85,12 @@ const GameScreen = (props: AppProps) => {
         setPastGuesses(curVal => [nextNumber, ...curVal]);
     };
 
+    let scrollWrapperStyle = styles.scrollWrapper;
+
+    if (Dimensions.get('window').width <= 500) {
+        scrollWrapperStyle = styles.scrollWrapperSmall;
+    }
+
     return (
         <View style={styles.screen}>
             <TitleText>Oponent's Guess</TitleText>
@@ -97,7 +103,7 @@ const GameScreen = (props: AppProps) => {
                     <Ionicons name="md-add" size={24} color="white" />
                 </MainButton>
             </Card>
-            <View style={styles.scrollWrapper}>
+            <View style={scrollWrapperStyle}>
                 {/* <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                     {pastGuesses.map((guess, index) => renderListItem(guess, pastGuesses.length - index))}
                 </ScrollView> */}
@@ -123,8 +129,12 @@ const styles = StyleSheet.create({
         width: 300,
         maxWidth: '80%'
     },
+    scrollWrapperSmall: {
+        width: '60%',
+        flex: 1 //Without this the scroll view won't scroll in android
+    },
     scrollWrapper: {
-        width: Dimensions.get('window').width > 500 ? '60%' : '80%',
+        width: '80%',
         flex: 1 //Without this the scroll view won't scroll in android
     },
     list: {
