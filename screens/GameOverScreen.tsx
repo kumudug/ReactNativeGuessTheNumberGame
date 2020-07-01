@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    Dimensions
+} from 'react-native';
 
 import TitleText from '../components/TitleText';
 import BodyText from '../components/BodyText';
@@ -46,13 +52,13 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
     imageContainer: {
-        width: 300,
-        height: 300,
-        borderRadius: 150,
+        width: Dimensions.get('window').width * 0.7,
+        height: Dimensions.get('window').width * 0.7,
+        borderRadius: Dimensions.get('window').width * 0.7 / 2,
         borderWidth: 3,
         borderColor: 'black',
         overflow: 'hidden',
-        marginVertical: 30
+        marginVertical:  Dimensions.get('window').height / 40
     },
     highlight: {
         color: Colors.primary
