@@ -28,6 +28,13 @@ const StartGameScreen = (props: AppProps) => {
     const [enteredValue, setEnteredValue] = useState<string>('');
     const [confirmed, setConfirmed] = useState<boolean>(false);
     const [selectedNumber, setSelectedNumber] = useState<number>(0);
+    const [buttonWidth, setButtonWidth] = useState<number>(Dimensions.get('window').width / 4);
+
+    const updateLayout = () => {
+        setButtonWidth(Dimensions.get('window').width / 4);
+    };
+
+    Dimensions.addEventListener('change', updateLayout);
 
     const numberInputHandler = (inputText: string) => {
         setEnteredValue(inputText.replace(/[^0-9]/g, ''));
@@ -91,10 +98,10 @@ const StartGameScreen = (props: AppProps) => {
                                 onChangeText={numberInputHandler}
                                 value={enteredValue} />
                             <View style={styles.buttonPanel}>
-                                <View style={styles.buttonStyle}>
+                                <View style={{ width: buttonWidth }}>
                                     <Button title="Reset" onPress={resetInputHandler} color={Colors.accent} />
                                 </View>
-                                <View style={styles.buttonStyle}>
+                                <View style={{ width: buttonWidth }}>
                                     <Button title="Confirm" onPress={confirmInputHandler} color={Colors.primary} />
                                 </View>
                             </View>
@@ -133,9 +140,6 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'space-between',
         paddingHorizontal: 15
-    },
-    buttonStyle: {
-        width: Dimensions.get('window').width / 4
     },
     input: {
         width: 50,
