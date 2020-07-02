@@ -26,7 +26,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         elevation: 5,
         padding: 20,
-        borderRadius: 10
+        borderRadius: 10,
+        // borderColor: 'black',
+        // borderStyle: 'solid',
+        // borderWidth: 1
     }
 });
 
