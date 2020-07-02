@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     StyleSheet,
@@ -30,12 +30,6 @@ const StartGameScreen = (props: AppProps) => {
     const [selectedNumber, setSelectedNumber] = useState<number>(0);
     const [buttonWidth, setButtonWidth] = useState<number>(Dimensions.get('window').width / 4);
 
-    const updateLayout = () => {
-        setButtonWidth(Dimensions.get('window').width / 4);
-    };
-
-    Dimensions.addEventListener('change', updateLayout);
-
     const numberInputHandler = (inputText: string) => {
         setEnteredValue(inputText.replace(/[^0-9]/g, ''));
     };
@@ -44,6 +38,25 @@ const StartGameScreen = (props: AppProps) => {
         setEnteredValue('');
         setConfirmed(false);
     }
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setButtonWidth(Dimensions.get('window').width / 4);
+        };
+
+        Dimensions.addEventListener('change', updateLayout);
+
+        /*
+        useEffect runs every time the component is rerendered
+        Cleanup logic runs in return. Runs before running the rest of the logic
+        Here I'm removing the old listener and adding a new one
+        Every time the screen is rotated this happens. If we don't clean up it will trigger multiple times,
+        due to event subscriptions every time the orientation changes
+        */
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+        }
+    });
 
     const confirmInputHandler = () => {
         const chosenNumber = parseInt(enteredValue);
