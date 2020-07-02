@@ -91,6 +91,32 @@ const GameScreen = (props: AppProps) => {
         scrollWrapperStyle = styles.scrollWrapperSmall;
     }
 
+    if (Dimensions.get('window').height < 500) {
+        return (
+            <View style={styles.screen}>
+                <TitleText>Oponent's Guess</TitleText>
+                <View style={styles.lowHeightControls}>
+                    <MainButton onPress={() => { nextGuessHandler(directionLower) }} >
+                        <Ionicons name="md-remove" size={24} color="white" />
+                    </MainButton>
+                    <NumberContainer>{currentGuess}</NumberContainer>
+                    <MainButton onPress={() => { nextGuessHandler(directionGreater) }}>
+                        <Ionicons name="md-add" size={24} color="white" />
+                    </MainButton>
+                </View>
+                <View style={scrollWrapperStyle}>
+                    {/* <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                    {pastGuesses.map((guess, index) => renderListItem(guess, pastGuesses.length - index))}
+                </ScrollView> */}
+                    <FlatList
+                        keyExtractor={(item) => item.toString()}
+                        data={pastGuesses} renderItem={renderListItem.bind(null, pastGuesses.length)}
+                        contentContainerStyle={styles.scrollViewContainer} />
+                </View>
+            </View>
+        );
+    }
+
     return (
         <View style={styles.screen}>
             <TitleText>Oponent's Guess</TitleText>
@@ -151,6 +177,12 @@ const styles = StyleSheet.create({
         //alignItems: 'center',
         justifyContent: 'flex-end',
         flexGrow: 1
+    },
+    lowHeightControls: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '80%',
+        alignItems: 'center'
     }
 });
 
