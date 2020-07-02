@@ -52,12 +52,34 @@ const GameScreen = (props: AppProps) => {
     const initialGuess = generateRandomNumberBetween(1, 100, props.userChoice);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
     const [pastGuesses, setPastGuesses] = useState<number[]>([initialGuess]);
+    const [availableDeviceWidth, setAvailableDeviceWidth] = useState(Dimensions.get('window').width);
+    const [availableDeviceHeight, setAvailableDeviceHeight] = useState(Dimensions.get('window').height);
 
     /* Destructur used to get constants assigned from props
     This is needed to add conditions to use effect
     If we use props there it will run every time props change, which is every render cycle
     When we get the constans out it only runs if those constants change */
-    const { userChoice, onGameOver } = props;
+    const { userChoice } = props;
+
+    useEffect(()=>{
+        const updateLayout = () => {
+            setAvailableDeviceWidth(Dimensions.get('window').width);
+            setAvailableDeviceHeight(Dimensions.get('window').height);
+        };
+
+        Dimensions.addEventListener('change', updateLayout);
+
+        /*
+        useEffect runs every time the component is rerendered
+        Cleanup logic runs in return. Runs before running the rest of the logic
+        Here I'm removing the old listener and adding a new one
+        Every time the screen is rotated this happens. If we don't clean up it will trigger multiple times,
+        due to event subscriptions every time the orientation changes
+        */
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+        }
+    })
 
     //useEffect runs after every render cycle
     useEffect(() => {
@@ -87,11 +109,11 @@ const GameScreen = (props: AppProps) => {
 
     let scrollWrapperStyle = styles.scrollWrapper;
 
-    if (Dimensions.get('window').width <= 500) {
+    if (availableDeviceWidth <= 500) {
         scrollWrapperStyle = styles.scrollWrapperSmall;
     }
 
-    if (Dimensions.get('window').height < 500) {
+    if (availableDeviceHeight < 500) {
         return (
             <View style={styles.screen}>
                 <TitleText>Oponent's Guess</TitleText>
