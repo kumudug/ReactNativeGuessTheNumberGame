@@ -46,7 +46,7 @@ const renderListItem = (length: number, itemData: ListRenderItemInfo<number>) =>
 };
 
 const GameScreen = (props: AppProps) => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    //ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
 
     const directionLower: String = 'lower';
     const directionGreater: String = 'greater';
