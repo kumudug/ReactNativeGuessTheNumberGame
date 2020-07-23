@@ -8,6 +8,7 @@ import {
     Dimensions
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { ScreenOrientation } from 'expo';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -61,7 +62,7 @@ const GameScreen = (props: AppProps) => {
     When we get the constans out it only runs if those constants change */
     const { userChoice } = props;
 
-    useEffect(()=>{
+    useEffect(() => {
         const updateLayout = () => {
             setAvailableDeviceWidth(Dimensions.get('window').width);
             setAvailableDeviceHeight(Dimensions.get('window').height);
@@ -71,7 +72,7 @@ const GameScreen = (props: AppProps) => {
 
         /*
         useEffect runs every time the component is rerendered
-        Cleanup logic runs in return. Runs before running the rest of the logic
+        Cleanup logic runs in return block. Runs before running the rest of the logic
         Here I'm removing the old listener and adding a new one
         Every time the screen is rotated this happens. If we don't clean up it will trigger multiple times,
         due to event subscriptions every time the orientation changes
