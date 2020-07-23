@@ -8,7 +8,7 @@ import {
     Dimensions
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ScreenOrientation } from 'expo';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -32,7 +32,10 @@ const generateRandomNumberBetween = (min: number, max: number, exclude: number):
     }
 };
 
-//FlatList sends the item param automatically. Since we are sending the length explicitly the auto param has to be after
+/*
+This is called by FlatList renderItem handler. The second itemData param is sent automatically
+FlatList sends the item param automatically. Since we are sending the length explicitly the auto param has to be after
+*/
 const renderListItem = (length: number, itemData: ListRenderItemInfo<number>) => {
     return (
         <View style={styles.list}>
@@ -43,6 +46,8 @@ const renderListItem = (length: number, itemData: ListRenderItemInfo<number>) =>
 };
 
 const GameScreen = (props: AppProps) => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+
     const directionLower: String = 'lower';
     const directionGreater: String = 'greater';
 
