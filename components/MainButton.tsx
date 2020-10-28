@@ -22,6 +22,8 @@ type AppProps = {
 const MainButton = (props: AppProps) => {
     let ButtonComponent: ComponentType<TouchableOpacityProps | TouchableNativeFeedbackProps> = TouchableOpacity;
 
+    /* It's also possible to use two files MainButton.ios.tsx and MainButton.android.tsx
+     * When doing tha make sure the import doesn't contain the .ios or .android part */
     if (Platform.OS === 'android' && Platform.Version >= 21) {
         ButtonComponent = TouchableNativeFeedback;
     }
