@@ -4,7 +4,8 @@ import {
     Text,
     StyleSheet,
     Image,
-    Dimensions
+    Dimensions,
+    SafeAreaView
 } from 'react-native';
 
 import TitleText from '../components/TitleText';
@@ -20,7 +21,7 @@ type AppProps = {
 
 const GameOverScreen = (props: AppProps) => {
     return (
-        <View style={styles.screen}>
+        <SafeAreaView style={styles.screen}>
             <TitleText>Game Over !</TitleText>
             <View style={styles.imageContainer}>
                 <Image
@@ -36,7 +37,7 @@ const GameOverScreen = (props: AppProps) => {
             <MainButton onPress={props.onStartGame}>
                 New Game
             </MainButton>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: 'black',
         overflow: 'hidden',
-        marginVertical:  Dimensions.get('window').height / 40
+        marginVertical: Dimensions.get('window').height / 40
     },
     highlight: {
         color: Colors.primary
